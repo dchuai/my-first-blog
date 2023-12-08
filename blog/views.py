@@ -1,7 +1,9 @@
+# blog/views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from .forms import PostForm  # Make sure to add this line
 from .models import Post
-from .forms import PostForm
+
 
 def post_list(request):
     posts = Post.objects.all()
@@ -24,6 +26,7 @@ def post_new(request):
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
 
+# blog/views.py
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
@@ -37,3 +40,5 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+
